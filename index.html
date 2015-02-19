@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Predicting Tree Circumference by Age</title>
+  <meta name="description" content="">
+  <meta name="author" content="Sarah F">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/reveal.min.css">
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/theme/sky.css" id="theme">
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" id="theme">
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->  <link rel="stylesheet" href = "assets/css/ribbons.css">
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section class='' data-state='' id='slide-1'>
+  <h2>Predicting Tree Circumference by Age</h2>
+  <h3>A Shiny App</h3>
+
+<p>by Sarah F</p>
+
+</section>
+<section class='' data-state='' id='slide-2'>
+  <h2>What my App Does</h2>
+  <p>This app uses data from the &quot;Orange&quot; data set in the R package datasets.  It first calculates a linear model predicting circumference based on age of the orange trees.  Then it uses the following features:</p>
+
+<ol>
+<li>A slider input allows the user to select an age within the age range of the data, in multiples of 10</li>
+<li>The app outputs the following:
+
+<ul>
+<li>a. A confirmation of the age value you selected</li>
+<li>b. The predicted circumference value</li>
+<li>c. A plot showing the data, the model used, the age selected and the predicted circumference.</li>
+</ul></li>
+</ol>
+
+</section>
+<section class='class' data-state='' id='id'>
+  <h2>A Demo</h2>
+  <p>The code used in the app does the following:</p>
+
+<pre><code class="r">data(Orange)
+lm.1&lt;-lm(circumference~age, data=Orange)
+predict.lm.1&lt;- function( age ) {
+    as.vector(lm.1$coef[1])+as.vector(lm.1$coef[2])*age
+}
+</code></pre>
+
+<p>Input an age of 850</p>
+
+<pre><code class="r">predict.lm.1(850)
+</code></pre>
+
+<pre><code>## [1] 108.1544
+</code></pre>
+
+</section>
+<section class='' data-state='' id='slide-4'>
+  <h2>Demo Part 2, Plot Output</h2>
+  <pre><code class="r">plot(circumference~age, data=Orange)
+abline(lm.1); abline(v=850, col=&quot;red&quot;, lwd=3); abline(h=predict.lm.1(850), col=&quot;blue&quot;, lty=2)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+</section>
+<section class='' data-state='' id='slide-5'>
+  <h2>Why you Need This App</h2>
+  <p>You need this app for the following reasons:</p>
+
+<ul>
+<li>You are an orange farmer and need to be able to predict tree growth based on age. If you&#39;re not an orange farmer, why not? It&#39;s obviously the only profession that matters (aside from data scientist)</li>
+<li>You don&#39;t have time to be rerunning this code and changing the age values every time you need a new prediction, you have oranges to farm!</li>
+<li>It shows you a very nice graph so you can get an idea of where your tree is and where it&#39;s likely to go as time progresses</li>
+<li>It&#39;s super sweet.  Like your oranges.</li>
+</ul>
+
+<h2>Thank you!</h2>
+
+</section>
+    </div>
+  </div>
+</body>
+  <script src="libraries/frameworks/revealjs/lib/js/head.min.js"></script>
+  <script src="libraries/frameworks/revealjs/js/reveal.min.js"></script>
+  <script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    theme: Reveal.getQueryHash().theme || 'sky', 
+    transition: Reveal.getQueryHash().transition || 'default', 
+    dependencies: [
+    // Cross-browser shim that fully implements classList -
+    // https://github.com/eligrey/classList.js/
+      { src: 'libraries/frameworks/revealjs/lib/js/classList.js', condition: function() { return !document.body.classList;}},
+      // Zoom in and out with Alt+click
+      { src: 'libraries/frameworks/revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Speaker notes
+      { src: 'libraries/frameworks/revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Remote control your reveal.js presentation using a touch device
+      //{ src: 'libraries/frameworks/revealjs/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+  });
+  </script>  <!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+ 
+
+</html>
